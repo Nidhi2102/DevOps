@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIT Connect | Smart Notice Board</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-[#0f172a] text-slate-200 font-['Plus_Jakarta_Sans'] antialiased overflow-x-hidden">
+
+    <div class="fixed top-0 left-0 w-full h-full -z-10 overflow-hidden opacity-30">
+        <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600 rounded-full blur-[120px] animate-pulse"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-amber-600 rounded-full blur-[120px] animate-pulse"></div>
+    </div>
+
+    <div class="flex min-h-screen">
+        <aside class="w-72 bg-white/5 backdrop-blur-xl border-r border-white/10 fixed h-full flex flex-col z-50">
+            <div class="p-8">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 bg-gradient-to-br from-[#002D62] to-[#0052a3] rounded-xl flex items-center justify-center text-white font-bold">S</div>
+                    <span class="font-bold text-2xl tracking-tight text-white">SIT<span class="text-[#D4AF37]">Connect</span></span>
+                </div>
+            </div>
+            <nav class="flex-1 px-6 space-y-3">
+                <button onclick="showPage('home')" id="nav-home" class="nav-item hidden active">📋 NOTICES</button>
+                <button onclick="showPage('admin')" id="nav-admin" class="nav-item hidden text-amber-400 bg-amber-400/10 border border-amber-400/20">✨ Post Notice</button>
+                <div class="mt-auto pb-8">
+                    <button onclick="location.reload()" id="nav-logout" class="nav-item hidden text-red-400 hover:bg-red-400/10">🚪 Logout</button>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="ml-72 flex-1">
+            <header class="h-20 bg-[#0f172a]/50 backdrop-blur-md border-b border-white/5 sticky top-0 z-40 px-10 flex items-center justify-between">
+                <div class="flex items-center gap-4 w-full max-w-xl bg-white/5 px-5 py-2.5 rounded-2xl border border-white/10 focus-within:border-amber-400/50">
+                    <span class="text-slate-400">🔍</span>
+                    <input type="text" id="searchInput" oninput="applyFilters()" placeholder="Search notices..." class="bg-transparent border-none outline-none text-sm w-full text-white">
+                </div>
+            </header>
+
+            <div class="p-10">
+                <section id="loginPage" class="page-transition pt-12">
+                    <div class="max-w-md mx-auto p-10 bg-white/5 backdrop-blur-2xl rounded-3xl border border-white/10 shadow-2xl">
+                        <h2 class="text-3xl font-bold text-white mb-2 text-center">Portal Access</h2>
+                        <div class="space-y-5 mt-8">
+                            <input type="email" id="email" placeholder="ID (admin@sit.edu or student@sit.edu)" class="auth-input">
+                            <input type="password" id="password" placeholder="Passkey" class="auth-input" onkeydown="if(event.key === 'Enter') handleLogin()">
+                            <button onclick="handleLogin()" class="w-full bg-gradient-to-r from-[#D4AF37] to-[#f5d17a] text-blue-950 py-4 rounded-2xl font-bold">Enter Portal</button>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="homePage" class="hidden page-transition">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-6">
+                        <h2 class="text-4xl font-extrabold text-white">NOTICES</h2>
+                        <div class="flex flex-wrap gap-3 p-1.5 bg-white/5 rounded-2xl border border-white/10">
+                            <button onclick="setCategory('All')" class="cat-btn active">All</button>
+                            <button onclick="setCategory('Academic')" class="cat-btn">Academic</button>
+                            <button onclick="setCategory('Placement')" class="cat-btn">Placement</button>
+                            <button onclick="setCategory('Examination')" class="cat-btn">Exams</button>
+                        </div>
+                    </div>
+                    <div id="noticeBoard" class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8"></div>
+                </section>
+
+              <section id="adminPage" class="hidden page-transition">
+    <div class="max-w-3xl mx-auto p-10 bg-white/5 backdrop-blur-2xl rounded-3xl border border-white/10 shadow-2xl">
+        <h2 class="text-3xl font-bold text-white mb-6">Broadcast New Notice</h2>
+        <div class="space-y-6">
+            <input type="text" id="noticeTitle" placeholder="Headline" class="auth-input">
+            <select id="noticeCategory" class="auth-input">
+                <option value="Academic">Academic Affairs</option>
+                <option value="Placement">Placement Cell</option>
+                <option value="Examination">Examinations</option>
+            </select>
+            <textarea id="noticeContent" rows="5" placeholder="Description..." class="auth-input"></textarea>
+            <div class="p-6 border-2 border-dashed border-white/10 rounded-2xl bg-white/5">
+                <input type="file" id="fileInput" class="w-full text-sm text-slate-400">
+            </div>
+            <button id="postBtn" onclick="addNotice()" class="w-full bg-white text-blue-950 py-4 rounded-2xl font-bold hover-btn transition-all duration-300">
+                Publish to Board
+            </button>
+        </div>
+    </div>
+</section>
+            </div>
+        </main>
+    </div>
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
