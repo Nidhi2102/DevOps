@@ -1,0 +1,31 @@
+:root { --accent-gold: #D4AF37; --primary-navy: #0f172a; }
+body { background: var(--primary-navy); }
+.nav-item { padding: 14px 20px; border-radius: 14px; color: #94a3b8; font-weight: 600; width: 100%; text-align: left; }
+.nav-item.active { background: rgba(212, 175, 55, 0.1); color: var(--accent-gold); }
+.auth-input { width: 100%; padding: 16px; border-radius: 16px; background: #1e293b; border: 1px solid #334155; color: white; outline: none; }
+.cat-btn { padding: 10px 20px; border-radius: 12px; font-weight: 600; color: #94a3b8; transition: 0.3s; }
+.cat-btn:hover { background: rgba(255, 255, 255, 0.1); color: white; }
+.cat-btn.active { background: var(--accent-gold); color: #0f172a; }
+.notice-card { background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; padding: 28px; backdrop-filter: blur(12px); }
+.btn-download { color: #60a5fa; font-size: 0.8rem; font-weight: 700; }
+.btn-delete { color: #ef4444; font-size: 0.8rem; font-weight: 700; }
+.hidden { display: none !important; }
+.page-transition { animation: fadeIn 0.4s ease-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+/* Mouse Detection Effect for Buttons */
+.hover-btn {
+    background-color: #ffffff;
+    color: #0f172a;
+    box-shadow: 0 0 0 rgba(212, 175, 55, 0);
+}
+
+.hover-btn:hover {
+    background-color: #D4AF37; /* Shifts to Gold */
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+}
+
+.hover-btn:active {
+    transform: translateY(0);
+}
